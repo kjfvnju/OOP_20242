@@ -1,0 +1,11 @@
+import javax.swing.JOptionPane;
+public class Build {
+	public static void main(String args[]) {
+		String numStr = JOptionPane.showInputDialog( 
+				"Input n: ");
+		int num = Int.parseInt(numStr);
+		JOptionPane.showMessageDialog(null, numstr);
+		
+		System.exit(0);
+	}
+}
