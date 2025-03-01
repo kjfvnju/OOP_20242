@@ -42,7 +42,7 @@ public class DaysInMonth {
             days = 29;
         }
 
-        JOptionPane.showMessageDialog(null, String.format("Number of day in %s: %d", monthStr, days));
+        JOptionPane.showMessageDialog(null, String.format("Number of day in month %s: %d", monthStr, days));
         System.exit(0);
     }
 }
