@@ -15,6 +15,6 @@ public class Cart {
 		for(int i = 0; i < qtyOrdered; i++) {
 			res += itemsOrdered[i].getCost();
 		}
-		System.out.printf("The price is: %.2f", res);
+		System.out.printf("The price is: %.2f$", res);
 	}
 }
