@@ -1,4 +1,0 @@
-INDEX VERSION 1.134+C:\Users\Admin\Music\OOP_Java\Code\.metadata\.plugins\org.eclipse.jdt.core
-1865797976.index
-3499584966.index
-1657330681.index
