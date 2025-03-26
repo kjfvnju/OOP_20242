@@ -16,6 +16,8 @@ public class Aims {
         cart1.addDigitalVideoDisc(dvd4);
         cart1.addDigitalVideoDisc(dvd5);
         
-        cart1.totalCost();
+        cart1.displayCartItem();
+        cart1.removeDigitalVideoDisc(dvd1);
+        cart1.removeDigitalVideoDisc(dvd1);
 	}
 }
