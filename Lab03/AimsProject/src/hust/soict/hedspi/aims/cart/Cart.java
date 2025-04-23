@@ -10,6 +10,10 @@ public class Cart {
 
     // Them media vao gio hang
     public void addMedia(Media media) {
+    	if (itemsOrdered.contains(media)) {
+            System.out.println("Media already in the cart: " + media.getTitle());
+            return;
+        }
         if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
         	itemsOrdered.add(media);
             items++;
@@ -107,5 +111,10 @@ public class Cart {
     // Getter cho danh sach media neu can dung tu ben ngoai
     public ArrayList<Media> getItemsOrdered() {
         return itemsOrdered;
+    }
+    
+    public void clear() {
+        itemsOrdered.clear(); // Assuming itemsOrdered is a List
+        items = 0;
     }
 }

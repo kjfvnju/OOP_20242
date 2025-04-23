@@ -371,8 +371,7 @@ public class Aims {
     // Dat hang
     public static void placeOrder(Cart cart) {
         System.out.println("Dang dat hang...");
-        System.out.println("Tong chi phi: " + cart.totalCost() + "$");
         cart.print();
-        cart = new Cart(); // Reset gio hang
+        cart.clear(); // Reset gio hang
     }
 }
