@@ -1,95 +1,120 @@
 package hust.soict.hedspi.aims.cart;
-import hust.soict.hedspi.aims.disc.DigitalVideoDisc;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+import hust.soict.hedspi.aims.media.Media;
 
 public class Cart {
-	public static final int MAX_NUMBER_ORDERED = 20;
-	private DigitalVideoDisc itemsOrdered[] = new DigitalVideoDisc[MAX_NUMBER_ORDERED];
-	private int qtyOrdered = 0;
-	
-	public void addDigitalVideoDisc(DigitalVideoDisc disc) {
-		if(qtyOrdered < MAX_NUMBER_ORDERED) {
-			itemsOrdered[qtyOrdered++] = disc;
-			System.out.printf("Add %s succesfully!\n", disc.getTitle());
-		}
-		else
-			System.out.println("The cart is full!");
-		displayCartItem();
-	}
-	
-	public float totalCost() {
-		float res = 0;
-		for(int i = 0; i < qtyOrdered; ++i) {
-			res += itemsOrdered[i].getCost();
-		}
-		return res;
-	}
-	
-	public void displayCartItem() {
-		int j = 1;
-		System.out.println("************************************CART*********************************");
-		for(int i = 0; i < qtyOrdered; ++i) {
-			System.out.println(j++ + ". " + itemsOrdered[i].toString());
-		}
-		System.out.printf("%-20s%.2f$\n", "Total cost: ", totalCost());
-		System.out.println("*************************************************************************\n");
-	}
-	
-	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
-		boolean change = false;
-		for(int i = 0; i < qtyOrdered; ++i) {
-			if(itemsOrdered[i].equals(disc)) {
-				for(int j = i; j < qtyOrdered-1; j++) {
-					itemsOrdered[j] = itemsOrdered[j+1];
-				}
-				itemsOrdered[--qtyOrdered] = null;
+    public static final int MAX_NUMBERS_ORDERED = 20;
+    public static int items = 0;
+    private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
 
-				change = true;
-				break;
-			}
-		}
-		if(change) {
-			System.out.printf("Remove %s succesfully!\n", disc.getTitle());
-		}
-		else {
-			System.out.printf("Remove %s failed!\n", disc.getTitle());
-		}
-		displayCartItem();
-	}
-	
-	public void searchDvdById() {
-		int j = 0;
-		System.out.print("Input the id of the DVD you want to find: ");
-		Scanner input = new Scanner(System.in);
-		int temp = input.nextInt();
-		input.close();
-		System.out.println("************************************CART*********************************");
-		for(int i = 0; i < MAX_NUMBER_ORDERED; ++i) {
-			if(itemsOrdered[i] != null && itemsOrdered[i].getId() == temp) {
-				System.out.println(++j + ". " + itemsOrdered[i].toString());
-			}
-		}
-		if(j == 0) {
-			System.out.println("No matched DVD.");
-		}
-		System.out.println("*************************************************************************\n");
-	}
-	
-	public void searchDvdByTitle() {
-		int j = 0;
-		System.out.print("Input the title of the DVD you want to find: ");
-		Scanner input = new Scanner(System.in);
-		String temp = input.nextLine();
-		input.close();
-		System.out.println("************************************CART*********************************");
-		for(int i = 0; i < MAX_NUMBER_ORDERED; ++i) {
-			if(itemsOrdered[i] != null && itemsOrdered[i].isMatch(temp)) {
-				System.out.println(++j + ". " + itemsOrdered[i].toString());
-			}
-		}
-		if(j == 0) {
-			System.out.println("No matched DVD.");
-		}
-		System.out.println("*************************************************************************\n");
-	}
+    // Them media vao gio hang
+    public void addMedia(Media media) {
+    	if (itemsOrdered.contains(media)) {
+            System.out.println("Media already in the cart: " + media.getTitle());
+            return;
+        }
+        if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
+        	itemsOrdered.add(media);
+            items++;
+            System.out.println("Added: " + media.getTitle());
+            System.out.println("Numbers of Media Ordered: " + items);
+        } else {
+            System.out.println("The cart is full!");
+        }
+    }
+
+    // Xoa media khoi gio hang
+    public void removeMedia(Media media) {
+        if (itemsOrdered.remove(media)) {
+        	items--;
+            System.out.println("Removed: " + media.getTitle());
+        } else {
+            System.out.println("Item not found in the cart.");
+        }
+    }
+
+    // Hien thi cac muc trong gio hang
+    public void displayCart() {
+        if (itemsOrdered.isEmpty()) {
+            System.out.println("The cart is empty.");
+        } else {
+            System.out.println("Current items in the cart:");
+            for (Media media : itemsOrdered) {
+                System.out.println(media.getTitle() + " - " + media.getCost() + "$");
+            }
+        }
+    }
+
+    // Tinh tong chi phi cua gio hang
+    public float totalCost() {
+        float res = 0;
+        for (Media m : itemsOrdered) {
+            res += m.getCost();
+        }
+        return res;
+    }
+
+    // In thong tin gio hang
+    public void print() {
+        System.out.println("********************************CART********************************");
+        System.out.println("Ordered Items:");
+        for (int i = 0; i < itemsOrdered.size(); i++) {
+            System.out.println((i + 1) + ". " + itemsOrdered.get(i).toString());
+        }
+        System.out.println("Total cost: " + totalCost() + "$");
+        System.out.println("********************************************************************");
+    }
+
+    // Tim kiem media theo ID
+    public void searchById(int id) {
+        boolean found = false;
+        for (Media media : itemsOrdered) {
+            if (media.getId() == id) {
+                System.out.println("Found: " + media.toString());
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("No media found with ID: " + id);
+        }
+    }
+
+    // Tim kiem media theo title
+    public void searchByTitle(String title) {
+        boolean found = false;
+        for (Media media : itemsOrdered) {
+            if (media.isMatch(title)) {
+                System.out.println("Found: " + media.toString());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No media found with title: " + title);
+        }
+    }
+
+    // Sap xep gio hang theo tieu de va gia (giam dan)
+    public void sortByTitleAndCost() {
+        System.out.println("Sorting cart by title and cost (descending):");
+        Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
+        displayCart();
+    }
+
+    // Sap xep gio hang theo gia va tieu de
+    public void sortByCostAndTitle() {
+        System.out.println("Sorting cart by cost and title:");
+        Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+        displayCart();
+    }
+    // Getter cho danh sach media neu can dung tu ben ngoai
+    public ArrayList<Media> getItemsOrdered() {
+        return itemsOrdered;
+    }
+    
+    public void clear() {
+        itemsOrdered.clear(); // Assuming itemsOrdered is a List
+        items = 0;
+    }
 }
