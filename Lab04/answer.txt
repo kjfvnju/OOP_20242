@@ -1,0 +1,25 @@
+1. Top-Level Containers
+AWT: Frame, Dialog, Applet.
+Swing: JFrame, JDialog, JApplet.
+
+- Các lớp của Swing đều bắt đầu bằng chữ "J" và kế thừa từ các lớp AWT nhưng bổ sung thêm nhiều chức năng.
+- AWT sử dụng các thành phần phụ thuộc vào giao diện hệ điều hành, Swing sử dụng thành phần không phụ thuộc vào giao diện hệ điều hành.
+
+2. Các thành phần.
+- Các thành phần trong Swing có nhiều tính năng hơn như hỗ trợ icon, tooltip, dễ dàng tùy biến và mở rộng.
+- AWT đơn giản hơn và ít tính năng nâng cao.
+
+3. Xử lý sự kiện.
+- AWT: Sử dụng mô hình xử lý sự kiện cũ (Java 1.0), sau nâng cấp lên mô hình delegation event model (Java 1.1)
+- Swing: Sử dụng hoàn toàn mô hình delegation event model.
+
+- AWT: Ít listener hơn và không linh hoạt bằng.
+- Swing: Có nhiều loại listener hơn như ActionListener, MouseListener, ChangeListener, dễ dùng và mở rộng hơn.
+
+4. Về giao diện người dùng.
+- AWT: Giao diện phụ thuộc vào hệ điều hành.
+- Swing: Có thể tùy chỉnh giao diện với "Look and Feel", giao diện nhất quán trên mọi hệ điều hành.
+
+- AWT: Không hỗ trợ nhiều tùy biến.
+- Swing: Hỗ trợ nhiều kiểu dáng và tùy chỉnh.
+
