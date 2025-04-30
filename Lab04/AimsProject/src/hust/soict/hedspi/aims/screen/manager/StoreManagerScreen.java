@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.*;
 import hust.soict.hedspi.aims.screen.media.*;
 import hust.soict.hedspi.aims.store.Store;
 
@@ -104,12 +104,42 @@ public class StoreManagerScreen extends JFrame{
 		ArrayList<Media> mediaInStore = store.getItemsInStore();
 		for(int i = 0; i < 9; ++i) {
 			if (i < mediaInStore.size()) {
-		        center.add(new MediaStore(mediaInStore.get(i)));
+				center.add(new MediaStore(mediaInStore.get(i), this));
 		    } else {
 		        center.add(new JPanel()); 
 		    }
 		}
 		
 		return center;
+	}
+	
+	void PlayMedia(Playable media) {
+		JDialog playDialog = new JDialog(this, "Playing Media", true);
+		playDialog.setLayout(new BorderLayout());
+		String title = new String();
+		if(media instanceof Media) {
+			title = ((Media) media).getTitle();
+		}
+		else {
+			title = "Unknown";
+		}
+		int length = 0;
+		if(media instanceof DigitalVideoDisc) {
+			length = ((DigitalVideoDisc) media).getLength();
+		}
+		else if(media instanceof CompactDisc) {
+			length =((CompactDisc) media).getLength();
+		}
+		
+		playDialog.add(new JLabel("Playing : "+ title +"[ Length "+ length +" minutes]"));
+		JButton stopButton = new JButton("Stop");
+		stopButton.addActionListener(e -> playDialog.dispose());
+		playDialog.add(stopButton, BorderLayout.SOUTH);
+		playDialog.setSize(400, 100);
+		playDialog.setLocationRelativeTo(null);
+		playDialog.setVisible(true);
+	}
+	private void showErrorMessage() {
+		JOptionPane.showMessageDialog(this,"Book can be played","Error!", JOptionPane.ERROR_MESSAGE);
 	}
 }

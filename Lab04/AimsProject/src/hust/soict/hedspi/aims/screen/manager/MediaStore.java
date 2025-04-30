@@ -11,7 +11,7 @@ import hust.soict.hedspi.aims.media.*;
 public class MediaStore extends JPanel{
 	private Media media;
 	
-	public MediaStore(Media media) {
+	public MediaStore(Media media, StoreManagerScreen managerScreen) {
 		this.media = media;
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
@@ -27,6 +27,9 @@ public class MediaStore extends JPanel{
 		
 		if(media instanceof Playable) {
 			JButton playButton = new JButton("Play");
+			playButton.addActionListener(e -> {
+				managerScreen.PlayMedia((Playable) media);
+            });
 			container.add(playButton);
 		}
 		
